@@ -18,9 +18,13 @@ class AURA_API AAuraCharacter : public ACharacterBase
 	GENERATED_BODY()
 public:
 	AAuraCharacter();
+	virtual void PossessedBy(AController* NewController) override;
+	virtual void OnRep_PlayerState() override;
 protected:
 	UPROPERTY(EditAnywhere, Category = "Camera")	
 	TObjectPtr<UCameraComponent> Camera;
 	UPROPERTY(EditAnywhere, Category = "Camera")
 	TObjectPtr<USpringArmComponent> CameraSpringArm;
+private:
+	void InitAbilityActorInfo();
 };
