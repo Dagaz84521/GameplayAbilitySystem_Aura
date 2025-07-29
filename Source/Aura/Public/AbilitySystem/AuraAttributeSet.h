@@ -13,6 +13,37 @@
 	GAMEPLAYATTRIBUTE_VALUE_SETTER(PropertyName) \
 	GAMEPLAYATTRIBUTE_VALUE_INITTER(PropertyName)
 
+USTRUCT()
+struct FEffectProperties
+{
+	GENERATED_BODY()
+	
+	FEffectProperties(){};
+
+	
+
+	UPROPERTY()
+	FGameplayEffectContextHandle EffectContextHandle;
+	
+	UPROPERTY()
+	UAbilitySystemComponent* SourceASC;
+	UPROPERTY()
+	AActor* SourceAvatarActor;
+	UPROPERTY()
+	AController* SourceController;
+	UPROPERTY()
+	ACharacter* SourceCharacter;
+
+	UPROPERTY()
+	UAbilitySystemComponent* TargetASC;
+	UPROPERTY()
+	AActor* TargetAvatarActor;
+	UPROPERTY()
+	AController* TargetController;
+	UPROPERTY()
+	ACharacter* TargetCharacter;
+};
+
 /**
  * 
  */
@@ -23,6 +54,8 @@ class AURA_API UAuraAttributeSet : public UAttributeSet
 public:
 	UAuraAttributeSet();
 	virtual void GetLifetimeReplicatedProps(TArray<class FLifetimeProperty>& OutLifetimeProps) const override;
+	virtual void PreAttributeChange(const FGameplayAttribute& Attribute, float& NewValue) override;
+	virtual void PostGameplayEffectExecute(const struct FGameplayEffectModCallbackData& Data) override;
 	
 	// ReplicatedUsing 表示当属性值发生变化时，会调用指定的函数进行处理，命名方式为 OnRep_属性名
 	UPROPERTY(BlueprintReadOnly, ReplicatedUsing = OnRep_Health, Category = "Vital Attributes")
@@ -57,5 +90,8 @@ public:
 	void OnRep_Mana(const FGameplayAttributeData& OldMana);
 	UFUNCTION()
 	void OnRep_MaxMana(const FGameplayAttributeData& OldMaxMana);
+
+private:
+	void SetEffectProperties(const FGameplayEffectModCallbackData& Data, FEffectProperties& Props);
 };
 
