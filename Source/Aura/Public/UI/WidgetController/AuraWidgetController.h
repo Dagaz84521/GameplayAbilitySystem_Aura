@@ -37,6 +37,7 @@ public:
 	UFUNCTION(BlueprintCallable)
 	void SetWidgetControllerParam(const FWidgetControllerParam& Param);
 
+	UFUNCTION(BlueprintCallable)
 	virtual void BroadcastInitialValues();
 	virtual void BindCallbacksToDependencies() {};
 protected:

@@ -13,7 +13,6 @@ void UOverlayWidgetController::BroadcastInitialValues()
 	OnMaxHealthChanged.Broadcast(AuraAttributeSet->GetMaxHealth());
 	OnManaChanged.Broadcast(AuraAttributeSet->GetMana());
 	OnMaxManaChanged.Broadcast(AuraAttributeSet->GetMaxMana());
-	
 }
 
 void UOverlayWidgetController::BindCallbacksToDependencies()
@@ -45,8 +44,6 @@ void UOverlayWidgetController::BindCallbacksToDependencies()
 		{
 			for (const FGameplayTag Tag : AssetTags)
 			{
-				// TODO : Broadcast the Tag to the Controller
-				
 				// 举例：当Tag是Message.HealthPotion时
 				// "Message.HealthPotion".MatchTags("Message")返回值是true, "Message".MatchTags("Message.HealthPotion")返回值是false
 				
